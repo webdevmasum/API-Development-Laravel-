@@ -1,6 +1,9 @@
 <?php
 
+
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\BlogCategoryController;
+use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +31,12 @@ Route::middleware('auth:api')->group(function () {
 // Route::post('product/store', [ProductController::class, 'store']);
 
 
+
+// Route for ProductController API
 Route::apiResource('products', ProductController::class);
+
+// Route for BlogCategoryController API
+Route::apiResource('blog-categories', BlogCategoryController::class);
+
+// Route for BlogController API
+Route::apiResource('blogs', BlogController::class);
