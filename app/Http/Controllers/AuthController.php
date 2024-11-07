@@ -12,6 +12,17 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
+
+    public function index()
+    {
+        $users = User::all();
+        return response()->json([
+            'status' => 'success',
+            'data' => $users
+
+        ]);
+    }
+
     public function register(UserRegisterRequest $request)
     {
         $validatedData = $request->validated();
