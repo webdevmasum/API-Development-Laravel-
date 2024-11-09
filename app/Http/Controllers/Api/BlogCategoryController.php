@@ -30,7 +30,7 @@ class BlogCategoryController extends Controller
             return response()->json($category, 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Category creation failed'], 500);
+            return response()->json(['error' => 'Category  creation failed'], 500);
         }
     }
 
@@ -39,7 +39,7 @@ class BlogCategoryController extends Controller
         $category = BlogCategory::find($id);
 
         if (!$category) {
-            return response()->json(['error' => 'Category not found'], 404);
+            return response()->json(['error' => 'Category  not found'], 404);
         }
 
         return response()->json($category);

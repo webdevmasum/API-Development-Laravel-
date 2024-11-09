@@ -57,7 +57,7 @@ class BlogController extends Controller
         $blog = Blog::find($id);
 
         if (!$blog) {
-            return response()->json(['error' => 'Blog not found'], 404);
+            return response()->json(['error' => 'Blog  not found'], 404);
         }
 
         $request->validate([
@@ -75,7 +75,7 @@ class BlogController extends Controller
             return response()->json($blog);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Blog update failed'], 500);
+            return response()->json(['error' => 'Blog  update failed'], 500);
         }
     }
 
