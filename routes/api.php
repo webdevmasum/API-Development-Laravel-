@@ -4,6 +4,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\BlogCategoryController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +41,6 @@ Route::apiResource('blog-categories', BlogCategoryController::class);
 
 // Route for BlogController API
 Route::apiResource('blogs', BlogController::class);
+
+// Route for PostController API
+Route::apiResource('posts', PostController::class);
