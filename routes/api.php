@@ -48,9 +48,9 @@ Route::apiResource('posts', PostController::class);
 
 // Route for CommentController API
 Route::prefix('posts/{post}/comments')->group(function () {
-    Route::get('/', [CommentController::class, 'index']); // List all comments for a post
-    Route::post('/', [CommentController::class, 'store']); // Create a new comment
-    Route::get('/{id}', [CommentController::class, 'show']); // Get a specific comment
-    Route::put('/{id}', [CommentController::class, 'update']); // Update a specific comment
-    Route::delete('/{id}', [CommentController::class, 'destroy']); // Delete a specific comment
+    Route::get('/', [CommentController::class, 'index']);
+    Route::post('/', [CommentController::class, 'store']);
+    Route::get('/{id}', [CommentController::class, 'show']);
+    Route::put('/{id}', [CommentController::class, 'update']);
+    Route::delete('/{id}', [CommentController::class, 'destroy']);
 });
