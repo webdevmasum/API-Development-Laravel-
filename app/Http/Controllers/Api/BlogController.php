@@ -12,14 +12,13 @@ class BlogController extends Controller
 {
     public function index()
     {
-        // Fetches all blogs with their associated category
+
         $blogs = Blog::with('category')->get();
         return response()->json($blogs);
     }
 
     public function store(Request $request)
     {
-        // Validates input data
         $request->validate([
             'blog_category_id' => 'required|exists:blog_categories,id',
             'title' => 'required|string|max:255',
@@ -27,7 +26,6 @@ class BlogController extends Controller
             'content' => 'nullable|string',
         ]);
 
-        // Attempts to store the blog within a transaction
         DB::beginTransaction();
         try {
             $blog = Blog::create($request->all());
@@ -41,7 +39,6 @@ class BlogController extends Controller
 
     public function show($id)
     {
-        // Finds and returns a specific blog
         $blog = Blog::with('category')->find($id);
 
         if (!$blog) {
@@ -53,7 +50,6 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Finds the blog by ID and validates input data
         $blog = Blog::find($id);
 
         if (!$blog) {
@@ -67,7 +63,6 @@ class BlogController extends Controller
             'content' => 'nullable|string',
         ]);
 
-        // Attempts to update the blog within a transaction
         DB::beginTransaction();
         try {
             $blog->update($request->all());
@@ -81,7 +76,6 @@ class BlogController extends Controller
 
     public function destroy($id)
     {
-        // Finds the blog by ID and deletes it within a transaction
         $blog = Blog::find($id);
 
         if (!$blog) {
