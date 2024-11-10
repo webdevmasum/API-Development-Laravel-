@@ -12,21 +12,54 @@ class CommentController extends Controller
 {
 
     // List all comments for a specific post
-    public function index($postId)
+    public function index()
     {
-        try {
-            $post = Post::findOrFail($postId);
-            $comments = $post->comments()->get();
+        // try {
+        //     $post = Post::findOrFail($postId);
+        //     $comments = $post->comments()->get();
 
-            return response()->json($comments, 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Post not found'], 404);
-        }
+        //     return response()->json($comments, 200);
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => 'Post not found'], 404);
+        // }
+
+
+        $comments = Comment::with('post')->get();
+        return response()->json($comments);
     }
 
 
     // Store a new comment
-    public function store(Request $request, $postId)
+    // public function store(Request $request , $postId)
+    // {
+    //     $request->validate([
+    //         'user_name' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //     ]);
+
+    //     DB::beginTransaction();
+    //     try {
+    //         $post = Post::findOrFail($postId);
+
+    //         $comment = $post->comments()->create([
+    //             'user_name' => $request->user_name,
+    //             'content' => $request->content,
+    //         ]);
+
+
+    //         DB::commit();
+
+    //         return response()->json(['message' => 'Comment added successfully', 'comment' => $comment], 201);
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return response()->json(['error' => 'Failed to add comment', 'details' => $e->getMessage()], 500);
+    //     }
+    // }
+
+
+
+
+    public function store(Request $request)
     {
         $request->validate([
             'user_name' => 'required|string|max:255',
@@ -35,21 +68,17 @@ class CommentController extends Controller
 
         DB::beginTransaction();
         try {
-            $post = Post::findOrFail($postId);
-
-            $comment = $post->comments()->create([
-                'user_name' => $request->user_name,
-                'content' => $request->content,
-            ]);
-
+            $comment = Comment::create($request->all());
             DB::commit();
 
-            return response()->json(['message' => 'Comment added successfully', 'comment' => $comment], 201);
+            return response()->json($comment, 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Failed to add comment', 'details' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to add comment'], 500);
         }
     }
+
+
 
     // Retrieve a specific comment
     public function show($id)
