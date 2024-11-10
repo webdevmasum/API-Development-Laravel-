@@ -4,6 +4,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\BlogCategoryController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -44,3 +45,12 @@ Route::apiResource('blogs', BlogController::class);
 
 // Route for PostController API
 Route::apiResource('posts', PostController::class);
+
+// Route for CommentController API
+Route::prefix('posts/{post}/comments')->group(function () {
+    Route::get('/', [CommentController::class, 'index']); // List all comments for a post
+    Route::post('/', [CommentController::class, 'store']); // Create a new comment
+    Route::get('/{id}', [CommentController::class, 'show']); // Get a specific comment
+    Route::put('/{id}', [CommentController::class, 'update']); // Update a specific comment
+    Route::delete('/{id}', [CommentController::class, 'destroy']); // Delete a specific comment
+});
